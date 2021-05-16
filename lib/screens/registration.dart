@@ -4,6 +4,7 @@ import 'package:dropdown_formfield/dropdown_formfield.dart';
 class Registration extends StatefulWidget {
   @override
   _RegistrationState createState() => _RegistrationState();
+
 }
 
 class _RegistrationState extends State<Registration> {

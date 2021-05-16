@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.done) {
             return MaterialApp(
               title: 'Social App',
+              theme: ThemeData(fontFamily: 'Antonio'),
               routes: {
                 '/login': (context) => LoginPage(),
                 '/feed': (context) => FeedPage(),
