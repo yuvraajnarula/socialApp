@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:sign_button/sign_button.dart';
 
 class LoginPage extends StatefulWidget {
   static String id = "Login";
@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Text("Don't have an account Sign Up here"),
               SizedBox(
-                height: 20.0,
+                height: 40.0,
               ),
               Column(
                children: [
@@ -60,18 +60,28 @@ class _LoginPageState extends State<LoginPage> {
                      children: [
                        Text('Login'),
                        Icon( Icons.lock),
+
                      ],
+
                    )
                  ),
                   SizedBox(
-                    width: 25.0,
+                    height: 20.0,
                   ),
 
                  SignInButton(
-                   Buttons.Google,
-                   text: "Sign up with Google",
-                   onPressed: () {},
-                 )
+                     buttonType: ButtonType.google,
+                     imagePosition: ImagePosition.right,
+                     //[buttonSize] You can also use this in combination with [width]. Increases the font and icon size of the button.
+                     buttonSize: ButtonSize.large,
+                     btnTextColor: Colors.grey,
+                     btnColor: Colors.white,
+                     width: 240,
+                     //[width] Use if you change the text value.
+                     btnText: 'Login using Google',
+                     onPressed: () {
+                       print('click');
+                     })
                ],
               )
             ],

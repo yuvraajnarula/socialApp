@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
                 '/login': (context) => LoginPage(),
                 '/feed': (context) => FeedPage(),
               },
-              home: LoginPage(),
+              home: Wrapper(),
             );
           }
           return CircularProgressIndicator();
