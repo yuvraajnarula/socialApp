@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class LoginPage extends StatefulWidget {
   static String id = "Login";
@@ -23,7 +24,6 @@ class _LoginPageState extends State<LoginPage> {
                 'Login',
                   style: TextStyle(
                     fontSize: 36.0,
-                    color: Colors.white,
                   ),
               ),
               SizedBox(
@@ -31,14 +31,13 @@ class _LoginPageState extends State<LoginPage> {
               ),
               TextFormField(
                 decoration: InputDecoration(
-                  hintText: 'Username',
-                  fillColor: Colors.white,
+                  hintText: 'Email',
                 ),
+                keyboardType: TextInputType.emailAddress,
               ),
               TextFormField(
                 decoration: InputDecoration(
                   hintText: 'Password',
-                  fillColor: Colors.white,
                 ),
                 obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
@@ -50,11 +49,30 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 20.0,
               ),
-              ElevatedButton(
-                  onPressed: (){
+              Column(
+               children: [
+                 ElevatedButton(
+                   onPressed:() {
 
-              },
-                  child: Text('Login')
+                 },
+                   child: Row(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     children: [
+                       Text('Login'),
+                       Icon( Icons.lock),
+                     ],
+                   )
+                 ),
+                  SizedBox(
+                    width: 25.0,
+                  ),
+
+                 SignInButton(
+                   Buttons.Google,
+                   text: "Sign up with Google",
+                   onPressed: () {},
+                 )
+               ],
               )
             ],
           ),
