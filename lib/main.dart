@@ -5,6 +5,7 @@ import 'package:social_app/screens/feed.dart';
 import 'package:social_app/screens/login.dart';
 import 'package:social_app/wrapper.dart';
 
+import 'package:social_app/screens/login.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
@@ -32,5 +33,18 @@ class MyApp extends StatelessWidget {
           }
           return CircularProgressIndicator();
         });
+  }
+}
+
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      title:'Social App',
+      routes:{
+        LoginPage.id: (context) => LoginPage(),
+      },
+      initialRoute: LoginPage.id,
+    );
   }
 }
