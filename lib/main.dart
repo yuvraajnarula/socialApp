@@ -4,7 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:social_app/screens/feed.dart';
 import 'package:social_app/screens/login.dart';
 import 'package:social_app/wrapper.dart';
-
+import 'package:social_app/screens/registration.dart';
 import 'package:social_app/screens/login.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
