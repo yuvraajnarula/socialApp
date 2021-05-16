@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sign_button/sign_button.dart';
 
 class LoginPage extends StatefulWidget {
   static String id = "Login";
@@ -23,7 +24,6 @@ class _LoginPageState extends State<LoginPage> {
                 'Login',
                   style: TextStyle(
                     fontSize: 36.0,
-                    color: Colors.white,
                   ),
               ),
               SizedBox(
@@ -31,14 +31,13 @@ class _LoginPageState extends State<LoginPage> {
               ),
               TextFormField(
                 decoration: InputDecoration(
-                  hintText: 'Username',
-                  fillColor: Colors.white,
+                  hintText: 'Email',
                 ),
+                keyboardType: TextInputType.emailAddress,
               ),
               TextFormField(
                 decoration: InputDecoration(
                   hintText: 'Password',
-                  fillColor: Colors.white,
                 ),
                 obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
@@ -48,13 +47,42 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Text("Don't have an account Sign Up here"),
               SizedBox(
-                height: 20.0,
+                height: 40.0,
               ),
-              ElevatedButton(
-                  onPressed: (){
+              Column(
+               children: [
+                 ElevatedButton(
+                   onPressed:() {
 
-              },
-                  child: Text('Login')
+                 },
+                   child: Row(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     children: [
+                       Text('Login'),
+                       Icon( Icons.lock),
+
+                     ],
+
+                   )
+                 ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+
+                 SignInButton(
+                     buttonType: ButtonType.google,
+                     imagePosition: ImagePosition.right,
+                     //[buttonSize] You can also use this in combination with [width]. Increases the font and icon size of the button.
+                     buttonSize: ButtonSize.large,
+                     btnTextColor: Colors.grey,
+                     btnColor: Colors.white,
+                     width: 240,
+                     //[width] Use if you change the text value.
+                     btnText: 'Login using Google',
+                     onPressed: () {
+                       print('click');
+                     })
+               ],
               )
             ],
           ),
