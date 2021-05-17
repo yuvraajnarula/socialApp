@@ -52,7 +52,9 @@ class _RegistrationState extends State<Registration> {
                      // ),
                       SizedBox(height: 10.0),
                       TextFormField(
-                        decoration: InputDecoration(hintText: 'Fullname'),
+                        decoration: InputDecoration(
+                          hintText: 'Fullname',
+                        ),
                       ),
                       TextFormField(
                         decoration: InputDecoration(hintText: 'Username'),
