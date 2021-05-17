@@ -27,6 +27,7 @@ class _RegistrationState extends State<Registration> {
               child: Form(
                 key: _key,
                 child: SingleChildScrollView(
+                  padding: EdgeInsets.all(30.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
