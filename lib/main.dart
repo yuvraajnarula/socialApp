@@ -6,6 +6,7 @@ import 'package:social_app/screens/login.dart';
 import 'package:social_app/wrapper.dart';
 import 'package:social_app/screens/registration.dart';
 import 'package:social_app/screens/login.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
               routes: {
                 '/login': (context) => LoginPage(),
                 '/feed': (context) => FeedPage(),
+                '/register': (context) => Registration(),
               },
               home: Wrapper(),
             );
@@ -36,4 +38,3 @@ class MyApp extends StatelessWidget {
         });
   }
 }
-

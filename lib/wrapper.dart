@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:social_app/loaders/registration.dart';
 import 'package:social_app/screens/feed.dart';
 import 'package:social_app/screens/login.dart';
 
@@ -16,7 +18,7 @@ class _WrapperState extends State<Wrapper> {
       stream: _auth.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return SpinKitCircle(color: Colors.black);
         }
         final user = snapshot.data;
         bool loggedin;
