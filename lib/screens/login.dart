@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
         appBar: AppBar(
           title: Text('Login'),
           centerTitle: true,
-          toolbarHeight: 100.0,
+          toolbarHeight: 80.0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(50),

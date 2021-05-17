@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:social_app/loaders/registration.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class Registration extends StatefulWidget {
   @override
@@ -22,6 +23,18 @@ class _RegistrationState extends State<Registration> {
     return loading
         ? RegisterLoading()
         : Scaffold(
+            appBar: AppBar(
+              title: Text('Register'),
+              centerTitle: true,
+              toolbarHeight: 80.0,
+              shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(50),
+              ),
+            ),
+              backgroundColor: HexColor('#8e9aaf'),
+            ),
+            backgroundColor: HexColor("#feeafa"),
             body: Container(
               padding: EdgeInsets.all(20.0),
               child: Form(
@@ -31,13 +44,13 @@ class _RegistrationState extends State<Registration> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'Registration',
-                        style: TextStyle(
-                          fontSize: 36.0,
-                        ),
-                      ),
-                      SizedBox(height: 20.0),
+                      //Text(
+                       // 'Registration',
+                      //  style: TextStyle(
+                      //    fontSize: 36.0,
+                     //   ),
+                     // ),
+                      SizedBox(height: 10.0),
                       TextFormField(
                         decoration: InputDecoration(hintText: 'Fullname'),
                       ),
@@ -45,7 +58,7 @@ class _RegistrationState extends State<Registration> {
                         decoration: InputDecoration(hintText: 'Username'),
                       ),
                       TextFormField(
-                        decoration: InputDecoration(hintText: 'email'),
+                        decoration: InputDecoration(hintText: 'Email'),
                         validator: (val) {
                           if (val.isEmpty || !EmailValidator.validate(val)) {
                             return 'Invalid Email';
@@ -112,7 +125,7 @@ class _RegistrationState extends State<Registration> {
                         valueField: 'value',
                       ),
                       SizedBox(
-                        height: 80.0,
+                        height:20.0,
                       ),
                       ElevatedButton(
                           onPressed: () async {
@@ -133,7 +146,13 @@ class _RegistrationState extends State<Registration> {
                               });
                             }
                           },
-                          child: Text('Register')),
+                          child: Text('Register'),
+                          style: ElevatedButton.styleFrom(
+                            primary: HexColor('#cbc0d3'),
+                            shadowColor: Colors.grey,
+                          ),
+                      ),
+
                     ],
                   ),
                 ),
