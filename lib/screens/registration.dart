@@ -74,7 +74,7 @@ class _RegistrationState extends State<Registration> {
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                            hintText: "Password",
+                            hintText: "Password (6-12 character strength)",
                             suffixIcon: IconButton(
                                 onPressed: () {
                                   setState(() {
@@ -99,7 +99,7 @@ class _RegistrationState extends State<Registration> {
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          hintText: 'Age',
+                          hintText: 'Age (above 13yrs)',
                         ),
                       ),
                       DropDownFormField(
