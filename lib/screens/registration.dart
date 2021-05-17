@@ -53,14 +53,14 @@ class _RegistrationState extends State<Registration> {
                       SizedBox(height: 10.0),
                       TextFormField(
                         decoration: InputDecoration(
-                          hintText: 'Fullname',
+                          hintText: 'Fullname (eg: John Doe)',
                         ),
                       ),
                       TextFormField(
-                        decoration: InputDecoration(hintText: 'Username'),
+                        decoration: InputDecoration(hintText: 'Username (eg:John12)'),
                       ),
                       TextFormField(
-                        decoration: InputDecoration(hintText: 'Email'),
+                        decoration: InputDecoration(hintText: 'Email (eg: john1@gmail.com)'),
                         validator: (val) {
                           if (val.isEmpty || !EmailValidator.validate(val)) {
                             return 'Invalid Email';
