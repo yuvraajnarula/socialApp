@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sign_button/sign_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -20,7 +21,16 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Login'),
+          centerTitle: true,
+          toolbarHeight: 100.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(50),
+            ),
+          ),
+          backgroundColor: HexColor('#8e9aaf'),
         ),
+        backgroundColor: HexColor("#feeafa"),
         body: Container(
           padding: EdgeInsets.all(20.0),
           child: Form(
@@ -30,14 +40,14 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Login',
-                    style: TextStyle(
-                      fontSize: 36.0,
-                    ),
-                  ),
+                 // Text(
+                   // 'Login',
+                   // style: TextStyle(
+                     // fontSize: 36.0,
+                    //),
+                  //),
                   SizedBox(
-                    height: 20.0,
+                    height: 50.0,
                   ),
                   TextFormField(
                     decoration: InputDecoration(
@@ -101,8 +111,15 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pushReplacementNamed(context, '/register');
                         },
                         child:
-                        Text('Register')
+                        Text('Register'),
+                        style: ElevatedButton.styleFrom(
+                          primary: HexColor('#cbc0d3'),
+                          shadowColor: Colors.grey,
+
+                        ),
+
                       ),
+
                       SizedBox(
                         width: 60.0,
                       ),
@@ -111,6 +128,11 @@ class _LoginPageState extends State<LoginPage> {
 
                       },
                       child: Text('Login'),
+                      style: ElevatedButton.styleFrom(
+                        primary: HexColor('#cbc0d3'),
+                        shadowColor: Colors.grey,
+
+                    ),
                   ),
                     ],
                   ),
@@ -122,9 +144,9 @@ class _LoginPageState extends State<LoginPage> {
                       imagePosition: ImagePosition.right,
                       //[buttonSize] You can also use this in combination with [width]. Increases the font and icon size of the button.
                       buttonSize: ButtonSize.large,
-                      btnTextColor: Colors.grey,
+                      btnTextColor: HexColor('#cbc0d3'),
                       btnColor: Colors.white,
-                      width: 240,
+                      width: 200,
                       //[width] Use if you change the text value.
                       btnText: 'Login using Google',
                       onPressed: () {
