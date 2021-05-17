@@ -50,20 +50,23 @@ class _RegistrationState extends State<Registration> {
                       //    fontSize: 36.0,
                      //   ),
                      // ),
-                      SizedBox(height: 10.0),
+                      SizedBox(height: 7.50),
                       TextFormField(
                         decoration: InputDecoration(
-                          hintText: 'Fullname (eg: John Doe)',
+                          hintText: 'Fullname',
+                          helperText: 'eg: John Doe',
                         ),
                       ),
                       TextFormField(
-                        decoration: InputDecoration(hintText: 'Username (eg:John12)'),
+                        decoration: InputDecoration(hintText: 'Username ',
+                          helperText: 'eg: john12',),
                       ),
                       TextFormField(
-                        decoration: InputDecoration(hintText: 'Email (eg: john1@gmail.com)'),
+                        decoration: InputDecoration(hintText: 'Email ',
+                          helperText: 'eg: johndoe@gmail.com',),
                         validator: (val) {
                           if (val.isEmpty || !EmailValidator.validate(val)) {
-                            return 'Invalid Email';
+                            return 'Invalid Email ';
                           } else {
                             return null;
                           }
@@ -74,7 +77,8 @@ class _RegistrationState extends State<Registration> {
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                            hintText: "Password (6-12 character strength)",
+                            hintText: "Password ",
+                            helperText: '6-12 character strength' ,
                             suffixIcon: IconButton(
                                 onPressed: () {
                                   setState(() {
@@ -99,12 +103,13 @@ class _RegistrationState extends State<Registration> {
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          hintText: 'Age (above 13yrs)',
+                          hintText: 'Age',
+                          helperText: 'Above 13 years',
                         ),
                       ),
                       DropDownFormField(
-                        titleText: 'Gender',
-                        hintText: 'Please choose one',
+                        titleText: 'Your Gender',
+                        hintText: 'Gender',
                         dataSource: [
                           {
                             'display': 'Male',
