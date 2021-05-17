@@ -55,25 +55,54 @@ class _RegistrationState extends State<Registration> {
                         decoration: InputDecoration(
                           hintText: 'Fullname',
                           helperText: 'eg: John Doe',
+                          suffixIcon: IconButton(
+                            onPressed: (){
+
+                            },
+                            icon: Icon(Icons.perm_contact_cal_rounded),
+                          ),
                         ),
+
+                      ),
+                      SizedBox(
+                        height: 10.0,
                       ),
                       TextFormField(
-                        decoration: InputDecoration(hintText: 'Username ',
-                          helperText: 'eg: john12',),
+                        decoration: InputDecoration(
+                          hintText: 'Username ',
+                          helperText: 'eg: john12',
+                          suffixIcon: IconButton(
+                            onPressed: (){
+
+                            },
+                            icon: Icon(Icons.perm_identity),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
                       ),
                       TextFormField(
                         decoration: InputDecoration(hintText: 'Email ',
-                          helperText: 'eg: johndoe@gmail.com',),
-                        validator: (val) {
-                          if (val.isEmpty || !EmailValidator.validate(val)) {
-                            return 'Invalid Email ';
-                          } else {
-                            return null;
-                          }
+                          helperText: 'eg: johndoe@gmail.com',suffixIcon: IconButton(
+                            onPressed: (){
+
+                            },
+                            icon: Icon(Icons.mail),
+                          ),),
+                          validator: (val) {
+                            if (val.isEmpty || !EmailValidator.validate(val)) {
+                              return 'Invalid Email ';
+                            } else {
+                              return null;
+                            }
                         },
                         onSaved: (val) {
                           email = val;
                         },
+                      ),
+                      SizedBox(
+                        height: 10.0,
                       ),
                       TextFormField(
                         decoration: InputDecoration(
@@ -101,11 +130,23 @@ class _RegistrationState extends State<Registration> {
                         obscureText: passHidden,
                         keyboardType: TextInputType.visiblePassword,
                       ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
                       TextFormField(
                         decoration: InputDecoration(
                           hintText: 'Age',
                           helperText: 'Above 13 years',
+                          suffixIcon: IconButton(
+                            onPressed: (){
+
+                            },
+                            icon: Icon(Icons.cake_sharp),
+                          ),
                         ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
                       ),
                       DropDownFormField(
                         titleText: 'Your Gender',

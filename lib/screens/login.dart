@@ -52,6 +52,12 @@ class _LoginPageState extends State<LoginPage> {
                   TextFormField(
                     decoration: InputDecoration(
                       hintText: 'Email',
+                      suffixIcon: IconButton(
+                        onPressed: (){
+
+                        },
+                        icon: Icon(Icons.mail),
+                      ),
 
                     ),
                     onSaved: (val) {
