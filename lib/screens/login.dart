@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sign_button/sign_button.dart';
 import 'package:social_app/loaders/registration.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -164,8 +165,16 @@ class _LoginPageState extends State<LoginPage> {
                           width: 200,
                           //[width] Use if you change the text value.
                           btnText: 'Login using Google',
-                          onPressed: () {
-                            print('click');
+                          onPressed: () async{
+                            print('Started Sign in With Google');
+                            final GoogleSignInAccount googleUser= await GoogleSignIn().signIn();
+                            final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+                            final credential = GoogleAuthProvider.credential(
+                              accessToken: googleAuth.accessToken,
+                              idToken: googleAuth.idToken,
+                            );
+                            return await _auth.signInWithCredential(credential);
                           })
                     ],
                   ),
