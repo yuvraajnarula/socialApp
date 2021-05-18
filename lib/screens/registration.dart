@@ -61,6 +61,9 @@ class _RegistrationState extends State<Registration> {
                             },
                             icon: Icon(Icons.perm_contact_cal_rounded),
                           ),
+                          helperStyle:TextStyle(
+                            fontSize: 8.0,
+                          ),
                         ),
 
                       ),
@@ -76,6 +79,10 @@ class _RegistrationState extends State<Registration> {
 
                             },
                             icon: Icon(Icons.perm_identity),
+
+                          ),
+                          helperStyle:TextStyle(
+                            fontSize: 8.0,
                           ),
                         ),
                       ),
@@ -84,7 +91,9 @@ class _RegistrationState extends State<Registration> {
                       ),
                       TextFormField(
                         decoration: InputDecoration(hintText: 'Email ',
-                          helperText: 'eg: johndoe@gmail.com',suffixIcon: IconButton(
+                          helperText: 'eg: johndoe@gmail.com',helperStyle:TextStyle(
+                            fontSize: 8.0,
+                          ),suffixIcon: IconButton(
                             onPressed: (){
 
                             },
@@ -108,6 +117,9 @@ class _RegistrationState extends State<Registration> {
                         decoration: InputDecoration(
                             hintText: "Password ",
                             helperText: '6-12 character strength' ,
+                            helperStyle:TextStyle(
+                              fontSize: 8.0,
+                            ),
                             suffixIcon: IconButton(
                                 onPressed: () {
                                   setState(() {
@@ -137,6 +149,9 @@ class _RegistrationState extends State<Registration> {
                         decoration: InputDecoration(
                           hintText: 'Age',
                           helperText: 'Above 13 years',
+                          helperStyle:TextStyle(
+                            fontSize: 8.0,
+                          ),
                           suffixIcon: IconButton(
                             onPressed: (){
 
