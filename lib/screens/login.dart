@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                     //),
                   //),
                   SizedBox(
-                    height: 50.0,
+                    height: 80.0,
                   ),
                   TextFormField(
                     decoration: InputDecoration(
