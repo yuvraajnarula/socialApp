@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:social_app/loaders/registration.dart';
 import 'package:social_app/screens/feed.dart';
 import 'package:social_app/screens/login.dart';
 
@@ -17,17 +16,19 @@ class _WrapperState extends State<Wrapper> {
     return StreamBuilder(
       stream: _auth.authStateChanges(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return SpinKitCircle(color: Colors.black);
+        if (snapshot.connectionState == ConnectionState.active) {
+          final user = snapshot.data;
+          if (user == null) {
+            return LoginPage();
+          } else {
+            return FeedPage();
+          }
         }
-        final user = snapshot.data;
-        bool loggedin;
-        if (user == null) {
-          loggedin = false;
-        } else {
-          loggedin = true;
-        }
-        return Scaffold(body: loggedin ? FeedPage() : LoginPage());
+        return Scaffold(
+          body: SpinKitChasingDots(
+            color: Colors.black,
+          ),
+        );
       },
     );
   }

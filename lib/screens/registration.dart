@@ -1,14 +1,12 @@
-import 'package:email_validator/email_validator.dart';
+import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:dropdown_formfield/dropdown_formfield.dart';
-import 'package:social_app/loaders/registration.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:social_app/loaders/registration.dart';
 
 class Registration extends StatefulWidget {
   @override
   _RegistrationState createState() => _RegistrationState();
-
 }
 
 class _RegistrationState extends State<Registration> {
@@ -28,10 +26,10 @@ class _RegistrationState extends State<Registration> {
               centerTitle: true,
               toolbarHeight: 80.0,
               shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(50),
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(50),
+                ),
               ),
-            ),
               backgroundColor: HexColor('#8e9aaf'),
             ),
             backgroundColor: HexColor("#feeafa"),
@@ -45,27 +43,24 @@ class _RegistrationState extends State<Registration> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       //Text(
-                       // 'Registration',
+                      // 'Registration',
                       //  style: TextStyle(
                       //    fontSize: 36.0,
-                     //   ),
-                     // ),
+                      //   ),
+                      // ),
                       SizedBox(height: 7.50),
                       TextFormField(
                         decoration: InputDecoration(
                           hintText: 'Fullname',
                           helperText: 'eg: John Doe',
                           suffixIcon: IconButton(
-                            onPressed: (){
-
-                            },
+                            onPressed: () {},
                             icon: Icon(Icons.perm_contact_cal_rounded),
                           ),
-                          helperStyle:TextStyle(
+                          helperStyle: TextStyle(
                             fontSize: 8.0,
                           ),
                         ),
-
                       ),
                       SizedBox(
                         height: 10.0,
@@ -75,13 +70,10 @@ class _RegistrationState extends State<Registration> {
                           hintText: 'Username ',
                           helperText: 'eg: john12',
                           suffixIcon: IconButton(
-                            onPressed: (){
-
-                            },
+                            onPressed: () {},
                             icon: Icon(Icons.perm_identity),
-
                           ),
-                          helperStyle:TextStyle(
+                          helperStyle: TextStyle(
                             fontSize: 8.0,
                           ),
                         ),
@@ -90,24 +82,22 @@ class _RegistrationState extends State<Registration> {
                         height: 10.0,
                       ),
                       TextFormField(
-                        decoration: InputDecoration(hintText: 'Email ',
-                          helperText: 'eg: johndoe@gmail.com',helperStyle:TextStyle(
-                            fontSize: 8.0,
-                          ),suffixIcon: IconButton(
-                            onPressed: (){
-
-                            },
-                            icon: Icon(Icons.mail),
-                          ),),
-                          validator: (val) {
-                            if (val.isEmpty || !EmailValidator.validate(val)) {
-                              return 'Invalid Email ';
-                            } else {
-                              return null;
-                            }
-                        },
+                        decoration: InputDecoration(
+                            hintText: 'Email ',
+                            helperText: 'eg: johndoe@gmail.com',
+                            helperStyle: TextStyle(
+                              fontSize: 8.0,
+                            ),
+                            suffixIcon: Icon(Icons.mail)),
                         onSaved: (val) {
                           email = val;
+                        },
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return 'Innvalid Email';
+                          } else {
+                            return null;
+                          }
                         },
                       ),
                       SizedBox(
@@ -116,8 +106,8 @@ class _RegistrationState extends State<Registration> {
                       TextFormField(
                         decoration: InputDecoration(
                             hintText: "Password ",
-                            helperText: '6-12 character strength' ,
-                            helperStyle:TextStyle(
+                            helperText: '6-12 character strength',
+                            helperStyle: TextStyle(
                               fontSize: 8.0,
                             ),
                             suffixIcon: IconButton(
@@ -149,13 +139,11 @@ class _RegistrationState extends State<Registration> {
                         decoration: InputDecoration(
                           hintText: 'Age',
                           helperText: 'Above 13 years',
-                          helperStyle:TextStyle(
+                          helperStyle: TextStyle(
                             fontSize: 8.0,
                           ),
                           suffixIcon: IconButton(
-                            onPressed: (){
-
-                            },
+                            onPressed: () {},
                             icon: Icon(Icons.cake_sharp),
                           ),
                         ),
@@ -188,34 +176,34 @@ class _RegistrationState extends State<Registration> {
                         valueField: 'value',
                       ),
                       SizedBox(
-                        height:20.0,
+                        height: 20.0,
                       ),
                       ElevatedButton(
-                          onPressed: () async {
-                            _key.currentState.save();
-                            if (_key.currentState.validate()) {
-                              setState(() {
-                                loading = true;
-                              });
-                              try {
-                                await _auth.createUserWithEmailAndPassword(
-                                    email: email, password: pass);
-                              } catch (e) {
-                                print(e.toString());
-                                return 'Some Error Occured';
-                              }
-                              setState(() {
-                                loading = false;
-                              });
+                        onPressed: () async {
+                          _key.currentState.save();
+                          if (_key.currentState.validate()) {
+                            setState(() {
+                              loading = true;
+                            });
+                            try {
+                              await _auth.createUserWithEmailAndPassword(
+                                  email: email, password: pass);
+                              Navigator.pushReplacementNamed(context, '/feed');
+                            } catch (e) {
+                              print(e.toString());
+                              return 'Some Error Occurred';
                             }
-                          },
-                          child: Text('Register'),
-                          style: ElevatedButton.styleFrom(
-                            primary: HexColor('#cbc0d3'),
-                            shadowColor: Colors.grey,
-                          ),
+                            setState(() {
+                              loading = false;
+                            });
+                          }
+                        },
+                        child: Text('Register'),
+                        style: ElevatedButton.styleFrom(
+                          primary: HexColor('#cbc0d3'),
+                          shadowColor: Colors.grey,
+                        ),
                       ),
-
                     ],
                   ),
                 ),
