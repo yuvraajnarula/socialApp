@@ -5,7 +5,6 @@ import 'package:social_app/screens/feed.dart';
 import 'package:social_app/screens/login.dart';
 import 'package:social_app/wrapper.dart';
 import 'package:social_app/screens/registration.dart';
-import 'package:social_app/screens/login.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +24,8 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.done) {
             return MaterialApp(
               title: 'Social App',
+              theme: ThemeData(fontFamily: 'Antonio'),
+
               routes: {
                 '/login': (context) => LoginPage(),
                 '/feed': (context) => FeedPage(),

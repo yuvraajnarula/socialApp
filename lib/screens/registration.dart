@@ -3,10 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:social_app/loaders/registration.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class Registration extends StatefulWidget {
   @override
   _RegistrationState createState() => _RegistrationState();
+
 }
 
 class _RegistrationState extends State<Registration> {
@@ -21,43 +23,103 @@ class _RegistrationState extends State<Registration> {
     return loading
         ? RegisterLoading()
         : Scaffold(
+            appBar: AppBar(
+              title: Text('Register'),
+              centerTitle: true,
+              toolbarHeight: 80.0,
+              shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(50),
+              ),
+            ),
+              backgroundColor: HexColor('#8e9aaf'),
+            ),
+            backgroundColor: HexColor("#feeafa"),
             body: Container(
               padding: EdgeInsets.all(20.0),
               child: Form(
                 key: _key,
                 child: SingleChildScrollView(
+                  padding: EdgeInsets.all(30.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'Registration',
-                        style: TextStyle(
-                          fontSize: 36.0,
+                      //Text(
+                       // 'Registration',
+                      //  style: TextStyle(
+                      //    fontSize: 36.0,
+                     //   ),
+                     // ),
+                      SizedBox(height: 7.50),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          hintText: 'Fullname',
+                          helperText: 'eg: John Doe',
+                          suffixIcon: IconButton(
+                            onPressed: (){
+
+                            },
+                            icon: Icon(Icons.perm_contact_cal_rounded),
+                          ),
+                          helperStyle:TextStyle(
+                            fontSize: 8.0,
+                          ),
+                        ),
+
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          hintText: 'Username ',
+                          helperText: 'eg: john12',
+                          suffixIcon: IconButton(
+                            onPressed: (){
+
+                            },
+                            icon: Icon(Icons.perm_identity),
+
+                          ),
+                          helperStyle:TextStyle(
+                            fontSize: 8.0,
+                          ),
                         ),
                       ),
-                      SizedBox(height: 20.0),
-                      TextFormField(
-                        decoration: InputDecoration(hintText: 'Fullname'),
+                      SizedBox(
+                        height: 10.0,
                       ),
                       TextFormField(
-                        decoration: InputDecoration(hintText: 'Username'),
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(hintText: 'email'),
-                        validator: (val) {
-                          if (val.isEmpty || !EmailValidator.validate(val)) {
-                            return 'Invalid Email';
-                          } else {
-                            return null;
-                          }
+                        decoration: InputDecoration(hintText: 'Email ',
+                          helperText: 'eg: johndoe@gmail.com',helperStyle:TextStyle(
+                            fontSize: 8.0,
+                          ),suffixIcon: IconButton(
+                            onPressed: (){
+
+                            },
+                            icon: Icon(Icons.mail),
+                          ),),
+                          validator: (val) {
+                            if (val.isEmpty || !EmailValidator.validate(val)) {
+                              return 'Invalid Email ';
+                            } else {
+                              return null;
+                            }
                         },
                         onSaved: (val) {
                           email = val;
                         },
                       ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
                       TextFormField(
                         decoration: InputDecoration(
-                            hintText: "Password",
+                            hintText: "Password ",
+                            helperText: '6-12 character strength' ,
+                            helperStyle:TextStyle(
+                              fontSize: 8.0,
+                            ),
                             suffixIcon: IconButton(
                                 onPressed: () {
                                   setState(() {
@@ -80,14 +142,30 @@ class _RegistrationState extends State<Registration> {
                         obscureText: passHidden,
                         keyboardType: TextInputType.visiblePassword,
                       ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
                       TextFormField(
                         decoration: InputDecoration(
                           hintText: 'Age',
+                          helperText: 'Above 13 years',
+                          helperStyle:TextStyle(
+                            fontSize: 8.0,
+                          ),
+                          suffixIcon: IconButton(
+                            onPressed: (){
+
+                            },
+                            icon: Icon(Icons.cake_sharp),
+                          ),
                         ),
                       ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
                       DropDownFormField(
-                        titleText: 'Gender',
-                        hintText: 'Please choose one',
+                        titleText: 'Your Gender',
+                        hintText: 'Gender',
                         dataSource: [
                           {
                             'display': 'Male',
@@ -110,7 +188,7 @@ class _RegistrationState extends State<Registration> {
                         valueField: 'value',
                       ),
                       SizedBox(
-                        height: 80.0,
+                        height:20.0,
                       ),
                       ElevatedButton(
                           onPressed: () async {
@@ -131,7 +209,13 @@ class _RegistrationState extends State<Registration> {
                               });
                             }
                           },
-                          child: Text('Register')),
+                          child: Text('Register'),
+                          style: ElevatedButton.styleFrom(
+                            primary: HexColor('#cbc0d3'),
+                            shadowColor: Colors.grey,
+                          ),
+                      ),
+
                     ],
                   ),
                 ),
