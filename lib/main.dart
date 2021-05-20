@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:social_app/screens/feed.dart';
 import 'package:social_app/screens/login.dart';
+import 'package:social_app/screens/profilePage.dart';
 import 'package:social_app/wrapper.dart';
 import 'package:social_app/screens/registration.dart';
 
@@ -25,11 +26,11 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               title: 'Social App',
               theme: ThemeData(fontFamily: 'Antonio'),
-
               routes: {
                 '/login': (context) => LoginPage(),
                 '/feed': (context) => FeedPage(),
                 '/register': (context) => Registration(),
+                '/profile': (context) => ProfilePage(),
               },
               home: Wrapper(),
             );

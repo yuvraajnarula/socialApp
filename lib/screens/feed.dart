@@ -24,6 +24,18 @@ class _FeedPageState extends State<FeedPage> {
               ))
         ],
       ),
+      body: Container(
+        padding: EdgeInsets.all(5.0),
+        child: Column(
+          children: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/profile');
+                },
+                child: Text('Profile Page'))
+          ],
+        ),
+      ),
     );
   }
 }
