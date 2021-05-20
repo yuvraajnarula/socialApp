@@ -3,17 +3,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:social_app/loaders/registration.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Registration extends StatefulWidget {
   @override
   _RegistrationState createState() => _RegistrationState();
 }
 
+final _database = FirebaseFirestore.instance;
+
 class _RegistrationState extends State<Registration> {
   final _key = GlobalKey<FormState>();
   final _auth = FirebaseAuth.instance;
-  String email;
-  String pass;
+  final _users = _database.collection('users');
+  String email, pass, fullName, userName, age, gender;
   bool passHidden = true;
   bool loading = false;
   @override
@@ -42,12 +45,6 @@ class _RegistrationState extends State<Registration> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      //Text(
-                      // 'Registration',
-                      //  style: TextStyle(
-                      //    fontSize: 36.0,
-                      //   ),
-                      // ),
                       SizedBox(height: 7.50),
                       TextFormField(
                         decoration: InputDecoration(
@@ -61,6 +58,16 @@ class _RegistrationState extends State<Registration> {
                             fontSize: 8.0,
                           ),
                         ),
+                        onSaved: (val) {
+                          fullName = val;
+                        },
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return 'Name cannot be empty';
+                          } else {
+                            return null;
+                          }
+                        },
                       ),
                       SizedBox(
                         height: 10.0,
@@ -77,6 +84,16 @@ class _RegistrationState extends State<Registration> {
                             fontSize: 8.0,
                           ),
                         ),
+                        onSaved: (val) {
+                          userName = val;
+                        },
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return 'You must enter a username';
+                          } else {
+                            return null;
+                          }
+                        },
                       ),
                       SizedBox(
                         height: 10.0,
@@ -147,33 +164,58 @@ class _RegistrationState extends State<Registration> {
                             icon: Icon(Icons.cake_sharp),
                           ),
                         ),
+                        onSaved: (val) {
+                          age = val;
+                        },
+                        validator: (val) {
+                          if (val.isEmpty || int.parse(val) < 13) {
+                            return 'You must be 13 years of age';
+                          } else {
+                            return null;
+                          }
+                        },
                       ),
                       SizedBox(
                         height: 10.0,
                       ),
-                      DropDownFormField(
-                        titleText: 'Your Gender',
-                        hintText: 'Gender',
-                        dataSource: [
-                          {
-                            'display': 'Male',
-                            'value': 'Male',
-                          },
-                          {
-                            'display': 'Female',
-                            'value': 'Female',
-                          },
-                          {
-                            'display': 'Non binary',
-                            'value': 'Non binary',
-                          },
-                          {
-                            'display': 'Not to say',
-                            'value': 'Not to say',
-                          }
-                        ],
-                        textField: 'display',
-                        valueField: 'value',
+                      // DropDownFormField(
+                      //   titleText: 'Your Gender',
+                      //   hintText: 'Gender',
+                      //   dataSource: [
+                      //     {
+                      //       'display': 'Male',
+                      //       'value': 'Male',
+                      //     },
+                      //     {
+                      //       'display': 'Female',
+                      //       'value': 'Female',
+                      //     },
+                      //     {
+                      //       'display': 'Non binary',
+                      //       'value': 'Non binary',
+                      //     },
+                      //     {
+                      //       'display': 'Not to say',
+                      //       'value': 'Not to say',
+                      //     }
+                      //   ],
+                      //   textField: 'display',
+                      //   valueField: 'value',
+                      //   onSaved: (val) {
+                      //     gender = val;
+                      //   },
+                      //   validator: (val) {
+                      //     if (val.isEmpty) {
+                      //       return 'Gender cannot be empty';
+                      //     } else {
+                      //       return null;
+                      //     }
+                      //   },
+                      // ),
+                      TextFormField(
+                        onSaved: (val) {
+                          gender = val;
+                        },
                       ),
                       SizedBox(
                         height: 20.0,
@@ -188,14 +230,22 @@ class _RegistrationState extends State<Registration> {
                             try {
                               await _auth.createUserWithEmailAndPassword(
                                   email: email, password: pass);
+                              final user = _auth.currentUser;
+                              _users.doc(user.uid).set({
+                                "fullName": fullName,
+                                "userName": userName,
+                                "email": email,
+                                "gender": gender,
+                                "age": age
+                              }).then((value) => print('UserAdded'));
+                              setState(() {
+                                loading = false;
+                              });
                               Navigator.pushReplacementNamed(context, '/feed');
                             } catch (e) {
                               print(e.toString());
                               return 'Some Error Occurred';
                             }
-                            setState(() {
-                              loading = false;
-                            });
                           }
                         },
                         child: Text('Register'),
