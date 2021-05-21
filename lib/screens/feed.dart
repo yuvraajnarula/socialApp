@@ -30,7 +30,7 @@ class _FeedPageState extends State<FeedPage> {
           children: [
             TextButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/profile');
+                  Navigator.pushNamed(context, '/profile');
                 },
                 child: Text('Profile Page'))
           ],

@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:sign_button/sign_button.dart';
 import 'package:social_app/loaders/registration.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _auth = FirebaseAuth.instance;
   final _key = GlobalKey<FormState>();
+  final _database = FirebaseFirestore.instance;
   String email;
   String pass;
   bool passHidden = true;
@@ -165,16 +167,47 @@ class _LoginPageState extends State<LoginPage> {
                           width: 200,
                           //[width] Use if you change the text value.
                           btnText: 'Login using Google',
-                          onPressed: () async{
-                            print('Started Sign in With Google');
-                            final GoogleSignInAccount googleUser= await GoogleSignIn().signIn();
-                            final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+                          onPressed: () async {
+                            setState(() {
+                              loading = true;
+                            });
+                            final GoogleSignInAccount googleUser =
+                                await GoogleSignIn().signIn();
+                            final GoogleSignInAuthentication googleAuth =
+                                await googleUser.authentication;
 
                             final credential = GoogleAuthProvider.credential(
                               accessToken: googleAuth.accessToken,
                               idToken: googleAuth.idToken,
                             );
-                            return await _auth.signInWithCredential(credential);
+                            await _auth.signInWithCredential(credential);
+                            final user = _auth.currentUser;
+                            try {
+                              await _database
+                                  .collection('users')
+                                  .doc(user.uid)
+                                  .get()
+                                  .then((DocumentSnapshot snap) {
+                                if (snap.exists) {
+                                  Navigator.pushReplacementNamed(
+                                      context, '/feed');
+                                  setState(() {
+                                    loading = false;
+                                  });
+                                } else {
+                                  Navigator.pushReplacementNamed(
+                                      context, '/gregister');
+                                  setState(() {
+                                    loading = false;
+                                  });
+                                }
+                              });
+                            } catch (e) {
+                              print(e.toString());
+                              return 'Some Error Occurred';
+                            }
+                            // Navigator.pushReplacementNamed(
+                            //     context, '/gregister');
                           })
                     ],
                   ),

@@ -1,31 +1,31 @@
-import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:social_app/loaders/registration.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:social_app/loaders/registration.dart';
 
-class Registration extends StatefulWidget {
+class GoogleRegister extends StatefulWidget {
   @override
-  _RegistrationState createState() => _RegistrationState();
+  _GoogleRegisterState createState() => _GoogleRegisterState();
 }
 
+final _auth = FirebaseAuth.instance;
 final _database = FirebaseFirestore.instance;
 
-class _RegistrationState extends State<Registration> {
-  final _key = GlobalKey<FormState>();
-  final _auth = FirebaseAuth.instance;
-  final _users = _database.collection('users');
-  String email, pass, fullName, userName, age, gender;
-  bool passHidden = true;
+class _GoogleRegisterState extends State<GoogleRegister> {
+  final _user = _auth.currentUser;
+  String fullName, userName, email, age, gender;
   bool loading = false;
+  bool passHidden = false;
+  final _key = GlobalKey<FormState>();
+  final _users = _database.collection('users');
   @override
   Widget build(BuildContext context) {
     return loading
         ? RegisterLoading()
         : Scaffold(
             appBar: AppBar(
-              title: Text('Register'),
+              title: Text('Registration'),
               centerTitle: true,
               toolbarHeight: 80.0,
               shape: RoundedRectangleBorder(
@@ -37,19 +37,20 @@ class _RegistrationState extends State<Registration> {
             ),
             backgroundColor: HexColor("#feeafa"),
             body: Container(
+              width: double.infinity,
               padding: EdgeInsets.all(20.0),
               child: Form(
                 key: _key,
                 child: SingleChildScrollView(
-                  padding: EdgeInsets.all(30.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(height: 7.50),
                       TextFormField(
+                        initialValue: _user.displayName,
+                        readOnly: true,
                         decoration: InputDecoration(
                           hintText: 'Fullname',
-                          helperText: 'eg: John Doe',
                           suffixIcon: IconButton(
                             onPressed: () {},
                             icon: Icon(Icons.perm_contact_cal_rounded),
@@ -60,13 +61,6 @@ class _RegistrationState extends State<Registration> {
                         ),
                         onSaved: (val) {
                           fullName = val;
-                        },
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return 'Name cannot be empty';
-                          } else {
-                            return null;
-                          }
                         },
                       ),
                       SizedBox(
@@ -99,9 +93,10 @@ class _RegistrationState extends State<Registration> {
                         height: 10.0,
                       ),
                       TextFormField(
+                        readOnly: true,
+                        initialValue: _user.email,
                         decoration: InputDecoration(
                             hintText: 'Email ',
-                            helperText: 'eg: johndoe@gmail.com',
                             helperStyle: TextStyle(
                               fontSize: 8.0,
                             ),
@@ -109,45 +104,6 @@ class _RegistrationState extends State<Registration> {
                         onSaved: (val) {
                           email = val;
                         },
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return 'Innvalid Email';
-                          } else {
-                            return null;
-                          }
-                        },
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                            hintText: "Password ",
-                            helperText: '6-12 character strength',
-                            helperStyle: TextStyle(
-                              fontSize: 8.0,
-                            ),
-                            suffixIcon: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    passHidden = !passHidden;
-                                  });
-                                },
-                                icon: Icon(passHidden
-                                    ? Icons.visibility_off
-                                    : Icons.visibility))),
-                        validator: (val) {
-                          if (val.isEmpty || val.length < 6) {
-                            return 'Password must be 6 characters long';
-                          } else {
-                            return null;
-                          }
-                        },
-                        onSaved: (val) {
-                          pass = val;
-                        },
-                        obscureText: passHidden,
-                        keyboardType: TextInputType.visiblePassword,
                       ),
                       SizedBox(
                         height: 10.0,
@@ -228,17 +184,14 @@ class _RegistrationState extends State<Registration> {
                               loading = true;
                             });
                             try {
-                              await _auth.createUserWithEmailAndPassword(
-                                  email: email, password: pass);
-                              final user = _auth.currentUser;
-                              _users.doc(user.uid).set({
+                              _users.doc(_user.uid).set({
                                 "fullName": fullName,
                                 "userName": userName,
                                 "email": email,
+                                'provider': 'Google',
                                 "gender": gender,
-                                "age": age,
-                                'provider': 'Email'
-                              }).then((value) => print('UserAdded'));
+                                "age": age
+                              }).then((value) => print('User Added'));
                               setState(() {
                                 loading = false;
                               });
